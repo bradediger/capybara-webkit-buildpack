@@ -11,6 +11,9 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 echo "-----> Exporting QMAKE"
-export QMAKE="$BUILD_DIR/.apt/usr/bin/qmake-qt4"
-$QMAKE --help
-echo "-----> QMAKE=$QMAKE"
+APT_BIN="$BUILD_DIR/.apt/usr/bin"
+export QMAKE="$APT_BIN/qmake-qt4"
+# Make qmake-qt4 available as `qmake`
+export PATH="$PATH:$APT_BIN"
+( cd $APT_BIN && ln -s qmake-qt4 qmake )
+echo "-----> QMAKE=$QMAKE PATH=$PATH"
